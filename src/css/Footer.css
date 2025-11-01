@@ -1,0 +1,15 @@
+footer > p > a {
+    color: var(--primary-color);
+}
+
+footer > p > a:hover {
+    color: var(--secondary-color);
+}
+
+footer > div.d-flex > li.nav-item > a {
+    color: var(--primary-color);
+}
+
+footer > div.d-flex > li.nav-item > a:hover {
+    color: var(--secondary-color);
+}
