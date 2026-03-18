@@ -26,7 +26,7 @@ const AboutSection = () => {
           >
             <div className="rounded-circle overflow-hidden mx-auto shadow-lg" style={{ width: '300px', height: '300px' }}>
               <motion.img
-                src="https://avatars.githubusercontent.com/u/100301878?v=4"
+                src="https://git.miarma.net/avatars/2fba8e2d4e39fffec3bbfe128df0cb9934ccf9b49fd6d310244c6b6209739425?size=512"
                 alt="Avatar"
                 className="w-100 h-100 object-cover"
                 whileHover={{ scale: 1.05 }}
@@ -44,10 +44,10 @@ const AboutSection = () => {
             <h2 className="h3 fw-bold mb-3">Sobre Mí</h2>
             <p className="text-muted mb-4">
               Soy un estudiante de Ingeniería de Computadores en la Universidad de Sevilla, en mi cuarto año. 
-              Actualmente me dedico a linux, redes, microcontroladores y webdev.
+              Actualmente me dedico a linux, redes, microcontroladores y webdev. Por aquí abajo dejo con lo que suelo trastear:
             </p>
             <div className="d-flex flex-wrap gap-2">
-              {['C/C++', 'Java', 'React', 'Vanilla JS', 'Python', 'MariaDB', 'Linux' ].map((skill) => (
+              {['C', 'Rust', 'Java', 'JS (Vanilla + React)', 'Python', 'DB', 'Linux', 'HDL'].map((skill) => (
                 <motion.span
                   key={skill}
                   className="badge px-3 py-2"
@@ -98,9 +98,9 @@ const ProjectsSection = () => {
         <h2 className="h3 fw-bold mb-4 text-center">Mis Proyectos Favoritos</h2>
         <div className="row g-4">
           {[
-            { title: 'core', desc: 'Mega-backend que alimenta todos mis servicios' },
-            { title: 'mkernel', desc: 'Plugin que hace que mi servidor de Minecraft funcione' },
-            { title: 'amodgus', desc: 'Mod de Minecraft para introducir al Amongus (sus)' },
+            { title: 'miarma-backend', desc: 'Backend Spring que alimenta todos mis servicios' },
+            { title: 'riscv-ac', desc: 'Implementación HDL del procesador RISC-V de la asignatura AC' },
+            { title: 'contaminus', desc: 'Proyecto presentado al hackathon Hack4Change 24/25 de la ETSII (aunque el jurado no nos echase mucha cuenta...). Mezcla frontend, backend e IoT.' },
           ].map((project, index) => (
             <motion.div
               key={project.title}

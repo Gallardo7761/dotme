@@ -21,7 +21,7 @@ export default function ProjectsLanding() {
     <div className="container mt-5 mb-5 text-white">
       <h1 className="text-center text-dark mb-4">Mis Proyectos en GitHub</h1>
       <p className="text-center text-muted mb-4">
-        Aquí puedes ver algunos de los proyectos en los que he trabajado. 🚀
+        (Copia temporal del mirror de GitHub, próximamente desde mi propia instancia Gitea!!!)
       </p>
       <div className="row">
         {repos.map((repo) => (

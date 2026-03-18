@@ -21,7 +21,7 @@ const Footer = () => {
       <span className="mx-3">|</span>
       <div className="d-flex gap-3 justify-content-center">
         {[
-          { text: 'GitHub', to: 'https://github.com/Gallardo7761' },
+          { text: 'MiarmaGit', to: 'https://git.miarma.net/Gallardo7761' },
           { text: 'Instagram', to: 'https://instagram.com/gallardoo7761' },
           { text: 'Reddit', to: 'https://reddit.com/u/Gallardo7761' },
         ].map((social) => (
@@ -29,7 +29,9 @@ const Footer = () => {
             {social.text}
           </Link>
         ))}
-        <a className='mastodon-verify' rel="me" href="https://mastodon.social/@gallardo7761">Mastodon</a>
+        <li className="nav-item" style={{ listStyleType: "none" }}>
+          <a className='mastodon-verify' rel="me" href="https://mastodon.social/@gallardo7761">Mastodon</a>
+        </li>
       </div>
     </footer>
   );
