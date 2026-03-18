@@ -3,7 +3,7 @@ import { Link as RouterLink, useInRouterContext } from 'react-router-dom';
 
 const AbstractLink = ({ to, children, className = '', ...props }) => {
     const isInternal = to.startsWith('/');
-    const isRouterAvailable = useInRouterContext(); // verifica si estamos dentro de un Router
+    const isRouterAvailable = useInRouterContext();
 
     if (isInternal && isRouterAvailable) {
         return (

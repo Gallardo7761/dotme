@@ -1,37 +1,42 @@
-import Link from './Link';
-import '../css/Footer.css';
-import { useState, useEffect } from 'react';
+import Link from '@/components/Link';
+import '@/css/Footer.css';
+import { useState, useEffect, useCallback } from 'react';
 
 const Footer = () => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const hearts = ["❤️", "💛", "🧡", "💚", "💙", "💜"];
   const [heart, setHeart] = useState("💜");
+
+  const randomHeart = useCallback(() => {
+    return hearts[Math.floor(Math.random() * hearts.length)];
+  }, [hearts]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setHeart(randomHeart());
     }, 1000);
     return () => clearInterval(interval);
-  });
-
-  const randomHeart = () => hearts[Math.floor(Math.random() * hearts.length)];
+  }, [randomHeart]);
 
   return (
-    <footer className="py-4 d-flex text-center justify-content-center bg-dark text-white">
-      <p className='m-0 p-0'>Dev&apos;d with {heart} by Gallardo7761</p>
-      <span className="mx-3">|</span>
-      <div className="d-flex gap-3 justify-content-center">
-        {[
-          { text: 'MiarmaGit', to: 'https://git.miarma.net/Gallardo7761' },
-          { text: 'Instagram', to: 'https://instagram.com/gallardoo7761' },
-          { text: 'Reddit', to: 'https://reddit.com/u/Gallardo7761' },
-        ].map((social) => (
-          <Link key={social.text} to={social.to}>
-            {social.text}
-          </Link>
-        ))}
-        <li className="nav-item" style={{ listStyleType: "none" }}>
-          <a className='mastodon-verify' rel="me" href="https://mastodon.social/@gallardo7761">Mastodon</a>
-        </li>
+    <footer className="main-footer">
+      <div className="container footer-container">
+        <p className="footer-dev-text">
+          Dev&apos;d with <span className="heart-icon">{heart}</span> by Gallardo7761
+        </p>
+        
+        <span className="footer-divider">|</span>
+
+        <ul className="footer-links">
+          <Link to="https://git.miarma.net/Gallardo7761">MiarmaGit</Link>
+          <Link to="https://instagram.com/gallardoo7761">Instagram</Link>
+          <Link to="https://reddit.com/u/Gallardo7761">Reddit</Link>
+          <li className="nav-item">
+            <a className="mastodon-verify" rel="noopener noreferer" target='_blank' href="https://masto.es/@gallardo7761">
+              Mastodon
+            </a>
+          </li>
+        </ul>
       </div>
     </footer>
   );

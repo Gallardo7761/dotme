@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
-import '../css/NavBar.css';
+import '@/css/NavBar.css';
 
 const NavBar = ({ children }) => {
   const navVariants = {
@@ -20,7 +20,9 @@ const NavBar = ({ children }) => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon">
+            <span className="navbar-toggler-icon-custom-line"></span>
+          </span>
         </button>
         <motion.div
           className="collapse navbar-collapse"

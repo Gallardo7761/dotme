@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import AbstractLink from './AbstractLink';
+import AbstractLink from '@/components/AbstractLink';
 
 const Link = ({ to, children, isNavbar, className = '', ...props }) => {
     return (

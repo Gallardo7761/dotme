@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import { useState, useEffect, useMemo } from "react";
-import "../css/Header.css";
+import "@/css/Header.css";
 
 const Header = ({ subtitle }) => {
   const names = useMemo(() => ["Jose", "Gallardo7761"], []);
@@ -14,6 +14,7 @@ const Header = ({ subtitle }) => {
     const baseText = "Hola, soy ";
     const fullText = baseText + (isJose ? names[0] : names[1]);
 
+    // FSM ahh
     if (animationState === "writing") {
       if (text.length < fullText.length) {
         timeout = setTimeout(() => {
@@ -36,15 +37,7 @@ const Header = ({ subtitle }) => {
     }
 
     return () => clearTimeout(timeout);
-  }, [text, animationState, isJose, names]); // -> Funciona !!! --> edit 08/25: fue mi primera pagina en react, se nota XD
-
-  const subtitleWithCode = (
-    <code>
-      printf(&quot;%s&quot;, &quot;{subtitle}&quot;);
-    </code>
-  );
-
-  const [isHovered, setIsHovered] = useState(false);
+  }, [text, animationState, isJose, names]);
 
   return (
     <header className="header">
@@ -62,10 +55,8 @@ const Header = ({ subtitle }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          onHoverStart={() => setIsHovered(true)}
-          onHoverEnd={() => setIsHovered(false)}
         >
-          {isHovered ? subtitleWithCode : subtitle}
+          {subtitle}
         </motion.p>
       </div>
     </header>

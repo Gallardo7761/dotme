@@ -1,0 +1,5 @@
+.projects-container {
+  background: linear-gradient(135deg, var(--gradient-primary), var(--gradient-secondary)) !important;
+  color: white !important;
+  min-height: 100vh !important;
+}

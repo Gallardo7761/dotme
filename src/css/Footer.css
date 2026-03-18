@@ -1,15 +1,57 @@
-footer > p > a {
-    color: var(--primary-color);
+.main-footer {
+    background-color: #141414;
+    border-top: 1px solid #343a40;
+    padding: 2rem 0;
+    color: #adb5bd;
 }
 
-footer > p > a:hover {
-    color: var(--secondary-color);
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
 
-footer > div.d-flex > li.nav-item > a {
-    color: var(--primary-color);
+@media (min-width: 768px) {
+    .footer-container {
+        flex-direction: row;
+        justify-content: center;
+    }
 }
 
-footer > div.d-flex > li.nav-item > a:hover {
-    color: var(--secondary-color);
+.footer-dev-text {
+    margin: 0;
+    font-weight: 500;
+}
+
+.footer-divider {
+    color: #495057;
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .footer-divider {
+        display: inline;
+    }
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilo para todos los enlaces del footer */
+.footer-links a, 
+.footer-links .link-component {
+    color: var(--primary-color, #00d1b2);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.footer-links a:hover {
+    color: var(--secondary-color, #fff);
 }

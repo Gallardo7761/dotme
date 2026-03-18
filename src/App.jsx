@@ -1,4 +1,4 @@
-import '@/css/App.css'
+import '@/css/index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
@@ -10,6 +10,8 @@ import Link from '@/components/Link.jsx'
 import NavBar from '@/components/NavBar.jsx'
 import Footer from '@/components/Footer.jsx'
 import { Routes, Route } from 'react-router-dom'
+import HackerCat from '@/components/HackerCat'
+import { useEffect } from 'react'
 
 const App = () => {
 
@@ -23,6 +25,32 @@ const App = () => {
     return delta + (septemberOrLater ? 1 : 0);
   };
 
+  useEffect(() => {
+    const setRandomFavicon = () => {
+      const start = 0x1F300;
+      const end = 0x1F64F;
+
+      const randomCode = Math.floor(Math.random() * (end - start + 1)) + start;
+
+      const hexCode = randomCode.toString(16);
+
+      const twemojiUrl = `https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/${hexCode}.svg`;
+
+      let link = document.querySelector("link[rel~='icon']");
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+      }
+
+      link.href = twemojiUrl;
+
+      link.type = 'image/x-icon';
+    };
+
+    setRandomFavicon();
+  }, []);
+
   return (
     <>
       <Header title="Hola, soy Jose" subtitle={`Estudiante de Ingeniería de Computadores en la US (${getCurrentYear()}º año)`} />
@@ -35,6 +63,8 @@ const App = () => {
         <Route path="/proyectos" element={<Projects />} />
       </Routes>
       <Footer />
+
+      <HackerCat />
     </>
   );
 }
