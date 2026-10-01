@@ -1,72 +1,58 @@
-import '@/css/index.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import { useEffect, useState } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 
-import Home from '@/pages/Home/Home.jsx'
-import Projects from '@/pages/Projects/Projects.jsx'
+import Home from '@/pages/Home.jsx';
+import Projects from '@/pages/Projects.jsx';
+import Nav from '@/components/Nav.jsx';
+import Footer from '@/components/Footer.jsx';
+import CommandPalette from '@/components/CommandPalette.jsx';
+import HackerCat from '@/components/HackerCat';
 
-import Header from '@/components/Header.jsx'
-import Link from '@/components/Link.jsx'
-import NavBar from '@/components/NavBar.jsx'
-import Footer from '@/components/Footer.jsx'
-import { Routes, Route } from 'react-router-dom'
-import HackerCat from '@/components/HackerCat'
-import { useEffect } from 'react'
-
-const App = () => {
-
-  const getCurrentYear = () => {
-    const start = new Date('2022-09-10');
-    const now = new Date();
-
-    const delta = now.getFullYear() - start.getFullYear();
-    const septemberOrLater = now.getMonth() >= 8;
-
-    return delta + (septemberOrLater ? 1 : 0);
-  };
+export default function App() {
+  const loc = useLocation();
+  const [pal, setPal] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 25 });
 
   useEffect(() => {
-    const setRandomFavicon = () => {
-      const start = 0x1F300;
-      const end = 0x1F64F;
-
-      const randomCode = Math.floor(Math.random() * (end - start + 1)) + start;
-
-      const hexCode = randomCode.toString(16);
-
-      const twemojiUrl = `https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/${hexCode}.svg`;
-
-      let link = document.querySelector("link[rel~='icon']");
-      if (!link) {
-        link = document.createElement('link');
-        link.rel = 'icon';
-        document.head.appendChild(link);
-      }
-
-      link.href = twemojiUrl;
-
-      link.type = 'image/x-icon';
+    const move = (e) => {
+      const s = document.documentElement.style;
+      s.setProperty('--mx', `${e.clientX}px`);
+      s.setProperty('--my', `${e.clientY}px`);
     };
+    const key = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); setPal((p) => !p); }
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('keydown', key);
+    return () => { window.removeEventListener('mousemove', move); window.removeEventListener('keydown', key); };
+  }, []);
 
-    setRandomFavicon();
+  useEffect(() => {
+    const code = Math.floor(Math.random() * (0x1f64f - 0x1f300 + 1)) + 0x1f300;
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
+    link.href = `https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/${code.toString(16)}.svg`;
+    link.type = 'image/svg+xml';
   }, []);
 
   return (
     <>
-      <Header title="Hola, soy Jose" subtitle={`Estudiante de Ingeniería de Computadores en la US (${getCurrentYear()}º año)`} />
-      <NavBar>
-        <Link to="/" isNavbar>Inicio</Link>
-        <Link to="/proyectos" isNavbar>Proyectos</Link>
-      </NavBar>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/proyectos" element={<Projects />} />
-      </Routes>
+      <div className="bg" />
+      <motion.div className="progress" style={{ scaleX }} />
+      <Nav onPalette={() => setPal(true)} />
+      <AnimatePresence mode="wait">
+        <motion.main key={loc.pathname} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+          <Routes location={loc}>
+            <Route path="/" element={<Home />} />
+            <Route path="/proyectos" element={<Projects />} />
+          </Routes>
+        </motion.main>
+      </AnimatePresence>
       <Footer />
-
       <HackerCat />
+      <CommandPalette open={pal} onClose={() => setPal(false)} />
     </>
   );
 }
-
-export default App;

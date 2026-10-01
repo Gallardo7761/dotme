@@ -1,58 +1,101 @@
-:root {
-  --primary-color: #ff3f1f;
-  --secondary-color: #be3118;
-  --text-shadow: #771e0e;
-  --box-shadow: #a81900;
+@font-face{font-family:"Fira Code";src:url('/fonts/FiraCode.ttf')}
+@font-face{font-family:"Open Sans";src:url('/fonts/OpenSans.ttf')}
+@font-face{font-family:"Product Sans";src:url('/fonts/ProductSansRegular.ttf')}
+@font-face{font-family:"Product Sans Bold";src:url('/fonts/ProductSansBold.ttf')}
 
-  --text-color: white;
+/* Tema "placa base" */
+:root{--primary-color:#e0a458;--secondary-color:#b9793a;--text-color:#e8efe4;--bg:#08120d;
+--panel:rgba(224,164,88,.04);--line:rgba(224,164,88,.16);--mx:50vw;--my:30vh}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text-color);font:1rem/1.6 "Open Sans",sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+:focus-visible{outline:2px solid var(--primary-color);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-  --gradient-primary: #1A1A1A;
-  --gradient-secondary: #2A2A2A;
-}
+/* fondo: vías que se iluminan alrededor del cursor */
+.bg{position:fixed;inset:0;z-index:-1;background:
+ radial-gradient(520px circle at var(--mx) var(--my),rgba(224,164,88,.10),transparent 70%),
+ radial-gradient(900px circle at 100% 0,rgba(40,110,70,.25),transparent 60%),var(--bg)}
+.bg::after{content:"";position:absolute;inset:0;background:radial-gradient(rgba(224,164,88,.55) 1.3px,transparent 1.6px) 0 0/30px 30px;
+ -webkit-mask-image:radial-gradient(260px circle at var(--mx) var(--my),#000,transparent);
+ mask-image:radial-gradient(260px circle at var(--mx) var(--my),#000,transparent)}
+.progress{position:fixed;top:0;left:0;right:0;height:2px;background:var(--primary-color);transform-origin:0 50%;z-index:100}
 
-.primary {
-  color: var(--primary-color);
-}
+/* nav flotante */
+.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:4px;padding:6px;
+ border:1px solid var(--line);border-radius:999px;background:rgba(8,18,13,.75);backdrop-filter:blur(14px)}
+.nav a{position:relative;z-index:0;padding:8px 18px;border-radius:999px;font-weight:600;font-size:.9rem}
+.nav a.on{color:#1a1206}
+.pill{position:absolute;inset:0;z-index:-1;background:var(--primary-color);border-radius:999px}
+.kbd{margin:0 8px 0 6px;padding:2px 8px;border:1px solid var(--line);border-radius:6px;background:none;color:inherit;font:.75rem "Fira Code",monospace;opacity:.7;cursor:pointer}
+.kbd:hover{opacity:1}
 
-html,
-body {
-  font-family: "Open Sans";
-}
+.wrap{max-width:1100px;margin:0 auto;padding:0 1.25rem}
+.page{padding:110px 0 60px}
 
-.custom-hr {
-  height: 1px;
-  border: none;
-  background: linear-gradient(to right, transparent, var(--primary-color), transparent);
-  opacity: 0.4;
-  margin: 4rem 0;
-}
+/* hero */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.05fr 1fr;gap:2.5rem;align-items:center;padding:100px 0 40px}
+.hero h1{font:700 clamp(1.9rem,5vw,3.5rem)/1.1 "Fira Code",monospace;margin:0 0 1rem;min-height:2.3em}
+.hero h1::after{content:"_";color:var(--primary-color);animation:blink 1s infinite}
+@keyframes blink{50%{opacity:0}}
+.sub{font:1.05rem/1.5 "Fira Code",monospace;color:#9fb0a2;margin:0 0 1.6rem}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn{padding:10px 20px;border-radius:10px;font-weight:600;background:var(--primary-color);color:#1a1206;border:1px solid transparent;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(224,164,88,.3)}
+.btn.ghost{background:none;color:inherit;border-color:var(--line)}
 
-@font-face {
-  font-family: "Fira Code";
-  src: url('/fonts/FiraCode.ttf');
-}
+/* tarjetas con foco de luz que sigue al ratón */
+.sp{position:relative;display:block;padding:1.4rem;border:1px solid var(--line);border-radius:18px;background:var(--panel);overflow:hidden;transition:translate .3s,border-color .3s}
+.sp::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;
+ background:radial-gradient(260px circle at var(--x,50%) var(--y,50%),rgba(224,164,88,.2),transparent 70%)}
+.sp:hover{translate:0 -4px;border-color:rgba(224,164,88,.55)}
+.sp:hover::before{opacity:1}
+.sp h2{font:1.15rem "Product Sans Bold",sans-serif;color:var(--primary-color);margin:0 0 .8rem}
+.sp h3{font:1.1rem "Product Sans Bold",sans-serif;color:var(--primary-color);margin:0 0 .4rem;word-break:break-word}
+.sp p{margin:0 0 1rem;opacity:.8}
+.h{height:100%}
 
-@font-face {
-  font-family: "Open Sans";
-  src: url('/fonts/OpenSans.ttf');
-}
+/* terminal */
+.term{padding:0!important}
+.bar{display:flex;gap:6px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);font:.75rem "Fira Code",monospace;color:#7d8f80}
+.bar i{width:11px;height:11px;border-radius:50%;background:#ff5f56}
+.bar i:nth-child(2){background:#ffbd2e}.bar i:nth-child(3){background:#27c93f}
+.bar span{margin-left:8px}
+.tbody{height:300px;overflow:auto;padding:14px;font:.85rem/1.55 "Fira Code",monospace;cursor:text}
+.tbody pre{margin:0 0 6px;white-space:pre-wrap;font:inherit;color:#c3cfc5}
+.tbody form{display:flex}
+.tbody input{flex:1;background:none;border:0;outline:0;color:inherit;font:inherit}
+.pr{color:var(--primary-color);margin-right:8px}
 
-@font-face {
-  font-family: "Product Sans";
-  src: url('/fonts/ProductSansRegular.ttf');
-}
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin:1rem 0 5rem}
+.s2{grid-column:span 2}.s4{grid-column:span 4}.s6{grid-column:span 6}
+.row{display:flex;gap:1.4rem;align-items:center;flex-wrap:wrap}
+.avatar{width:120px;height:120px;border-radius:50%;object-fit:cover;border:2px solid var(--primary-color);box-shadow:0 0 40px rgba(224,164,88,.3)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:5px 14px;border:1px solid var(--line);border-radius:999px;background:none;color:inherit;font-size:.85rem;cursor:pointer;transition:background .2s,color .2s}
+.chip:hover,.chip.on{background:var(--primary-color);color:#1a1206;border-color:transparent}
+.tag{font-size:.8rem;color:var(--primary-color);border:1px solid var(--line);border-radius:6px;padding:2px 8px}
 
-@font-face {
-  font-family: "Product Sans Italic";
-  src: url('/fonts/ProductSansItalic.ttf');
-}
+/* proyectos */
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:1.5rem}
+.search{flex:1;min-width:200px;padding:10px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:inherit;outline:0}
+.search:focus{border-color:var(--primary-color)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.meta{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;opacity:.8}
+.empty{padding:3rem 0;text-align:center;opacity:.7}
 
-@font-face {
-  font-family: "Product Sans Italic Bold";
-  src: url('/fonts/ProductSansBoldItalic.ttf');
-}
+/* paleta de comandos */
+.overlay{position:fixed;inset:0;z-index:200;display:grid;place-items:start center;padding-top:18vh;background:rgba(0,0,0,.55);backdrop-filter:blur(6px)}
+.palette{width:min(520px,92vw);background:#0d1a13;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.palette input{width:100%;padding:16px 18px;background:none;border:0;border-bottom:1px solid var(--line);color:inherit;font:1rem "Fira Code",monospace;outline:0}
+.it{padding:12px 18px;cursor:pointer;border-left:3px solid transparent}
+.it.on{background:rgba(224,164,88,.12);border-left-color:var(--primary-color)}
 
-@font-face {
-  font-family: "Product Sans Bold";
-  src: url('/fonts/ProductSansBold.ttf');
-}
+.foot{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:center;padding:2rem 1rem;border-top:1px solid var(--line);color:#9fb0a2;background:rgba(0,0,0,.25)}
+.links{display:flex;gap:1.4rem}
+.foot a{color:var(--primary-color)}.foot a:hover{color:var(--text-color)}
+
+@media(max-width:860px){.hero{grid-template-columns:1fr;min-height:auto}.bento>*{grid-column:span 6}}

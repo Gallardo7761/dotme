@@ -1,45 +1,22 @@
-import Link from '@/components/Link';
-import '@/css/Footer.css';
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 
-const Footer = () => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const hearts = ["❤️", "💛", "🧡", "💚", "💙", "💜"];
-  const [heart, setHeart] = useState("💜");
+const HEARTS = ['❤️', '💛', '🧡', '💚', '💙', '💜'];
 
-  const randomHeart = useCallback(() => {
-    return hearts[Math.floor(Math.random() * hearts.length)];
-  }, [hearts]);
-
+export default function Footer() {
+  const [heart, setHeart] = useState('💜');
   useEffect(() => {
-    const interval = setInterval(() => {
-      setHeart(randomHeart());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [randomHeart]);
+    const id = setInterval(() => setHeart(HEARTS[Math.floor(Math.random() * HEARTS.length)]), 1000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
-    <footer className="main-footer">
-      <div className="container footer-container">
-        <p className="footer-dev-text">
-          Dev&apos;d with <span className="heart-icon">{heart}</span> by Gallardo7761
-        </p>
-        
-        <span className="footer-divider">|</span>
-
-        <ul className="footer-links">
-          <Link to="https://git.miarma.net/Gallardo7761">MiarmaGit</Link>
-          <Link to="https://instagram.com/gallardoo7761">Instagram</Link>
-          <Link to="https://reddit.com/u/Gallardo7761">Reddit</Link>
-          <li className="nav-item">
-            <a className="mastodon-verify" rel="noopener noreferer" target='_blank' href="https://masto.es/@gallardo7761">
-              Mastodon
-            </a>
-          </li>
-        </ul>
+    <footer className="foot">
+      <span>Dev&apos;d with {heart} by Gallardo7761</span>
+      <div className="links">
+        <a href="https://git.miarma.net/Gallardo7761" target="_blank" rel="noopener noreferrer">MiarmaGit</a>
+        <a href="https://instagram.com/gallardoo7761" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://masto.es/@gallardo7761" target="_blank" rel="me noopener noreferrer" className="mastodon-verify">Mastodon</a>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
