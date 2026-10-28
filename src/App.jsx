@@ -5,7 +5,6 @@ import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import Home from '@/pages/Home.jsx';
 import Projects from '@/pages/Projects.jsx';
 import Nav from '@/components/Nav.jsx';
-import Footer from '@/components/Footer.jsx';
 import CommandPalette from '@/components/CommandPalette.jsx';
 import HackerCat from '@/components/HackerCat';
 
@@ -16,17 +15,11 @@ export default function App() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 25 });
 
   useEffect(() => {
-    const move = (e) => {
-      const s = document.documentElement.style;
-      s.setProperty('--mx', `${e.clientX}px`);
-      s.setProperty('--my', `${e.clientY}px`);
-    };
     const key = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); setPal((p) => !p); }
     };
-    window.addEventListener('mousemove', move);
     window.addEventListener('keydown', key);
-    return () => { window.removeEventListener('mousemove', move); window.removeEventListener('keydown', key); };
+    return () => { window.removeEventListener('keydown', key); };
   }, []);
 
   useEffect(() => {
@@ -39,7 +32,6 @@ export default function App() {
 
   return (
     <>
-      <div className="bg" />
       <motion.div className="progress" style={{ scaleX }} />
       <Nav onPalette={() => setPal(true)} />
       <AnimatePresence mode="wait">
@@ -50,7 +42,7 @@ export default function App() {
           </Routes>
         </motion.main>
       </AnimatePresence>
-      <Footer />
+      <miarma-footer />
       <HackerCat />
       <CommandPalette open={pal} onClose={() => setPal(false)} />
     </>

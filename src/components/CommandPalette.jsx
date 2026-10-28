@@ -13,9 +13,10 @@ export default function CommandPalette({ open, onClose }) {
   const items = [
     ['Ir a Inicio', () => nav('/')],
     ['Ir a Proyectos', () => nav('/proyectos')],
+    ['miarma.net', ext('https://miarma.net')],
+    ['mCDN', ext('https://cdn.miarma.net')],
     ['MiarmaGit', ext('https://git.miarma.net/Gallardo7761')],
     ['Instagram', ext('https://instagram.com/gallardoo7761')],
-    ['Reddit', ext('https://reddit.com/u/Gallardo7761')],
     ['Mastodon', ext('https://masto.es/@gallardo7761')],
   ].filter(([n]) => n.toLowerCase().includes(q.toLowerCase()));
 
