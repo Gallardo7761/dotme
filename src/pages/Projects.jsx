@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faStar } from '@fortawesome/free-solid-svg-icons';
 import Section from '@/components/Section';
-import Spot from '@/components/Spot';
 import useRepos from '@/hooks/useRepos';
 
 const LANG_COLORS = {
@@ -27,7 +26,7 @@ export default function Projects() {
     .sort(SORTS[sort][1]);
 
   return (
-    <div className="wrap page">
+    <div className="page">
       <Section n="//" title="Proyectos" aside={!loading && !error && <span className="sec__count">{list.length}/{visible.length}</span>}>
         <div className="tools">
           <input className="search" placeholder="Buscar repos…" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Buscar repos" />
@@ -52,7 +51,7 @@ export default function Projects() {
         <motion.div layout className="grid">
           <AnimatePresence mode="popLayout">
             {list.map((r) => (
-              <Spot key={r.id} as={motion.a} layout className="repo" href={r.html_url} target="_blank" rel="noopener noreferrer"
+              <motion.a key={r.id} layout className="repo" href={r.html_url} target="_blank" rel="noopener noreferrer"
                 initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.94 }}>
                 <FontAwesomeIcon icon={faArrowRight} className="repo__arrow" />
                 <span className="repo__owner">
@@ -65,7 +64,7 @@ export default function Projects() {
                   <span><i className="dot" style={{ background: LANG_COLORS[r.language] ?? 'var(--miarma-text-muted)' }} />{r.language || 'Desconocido'}</span>
                   <span><FontAwesomeIcon icon={faStar} /> {r.stars_count} · {new Date(r.updated_at).toLocaleDateString('es-ES')}</span>
                 </div>
-              </Spot>
+              </motion.a>
             ))}
           </AnimatePresence>
         </motion.div>

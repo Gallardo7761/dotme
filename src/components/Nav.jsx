@@ -1,30 +1,31 @@
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const links = [['/', 'Inicio'], ['/proyectos', 'Proyectos']];
 
 export default function Nav({ onPalette }) {
+  const navigate = useNavigate();
+  const home = (e) => {
+    if (!e.target.closest('.miarma-header__brand') || e.metaKey || e.ctrlKey) return;
+    e.preventDefault();
+    navigate('/');
+  };
+
   return (
-    <header className="topbar">
-      <div className="topbar__in">
-        <Link to="/" className="brand">
-          <img src="https://cdn.miarma.net/files/img/logo-without-text.svg" alt="" width={30} height={30} />
-          <span>jose<span className="accent">.</span>miarma<span className="accent">.</span>net</span>
-        </Link>
-        <nav className="nav">
-          {links.map(([to, label]) => (
-            <NavLink key={to} to={to} end className={({ isActive }) => (isActive ? 'on' : '')}>
-              {({ isActive }) => (
-                <>
-                  {isActive && <motion.span layoutId="pill" className="pill" transition={{ type: 'spring', stiffness: 400, damping: 32 }} />}
-                  {label}
-                </>
-              )}
-            </NavLink>
-          ))}
-          <button className="kbd" onClick={onPalette} aria-label="Abrir paleta de comandos">Ctrl K</button>
-        </nav>
-      </div>
-    </header>
+    <miarma-header site="jose" tag="portfolio · ingeniería de computadores" onClick={home}>
+      <nav className="nav">
+        {links.map(([to, label]) => (
+          <NavLink key={to} to={to} end className={({ isActive }) => (isActive ? 'on' : '')}>
+            {({ isActive }) => (
+              <>
+                {isActive && <motion.span layoutId="pill" className="pill" transition={{ type: 'spring', stiffness: 400, damping: 32 }} />}
+                {label}
+              </>
+            )}
+          </NavLink>
+        ))}
+        <button className="kbd" onClick={onPalette} aria-label="Abrir paleta de comandos">Ctrl K</button>
+      </nav>
+    </miarma-header>
   );
 }

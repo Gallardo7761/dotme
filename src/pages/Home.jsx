@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowRight, faBook, faCodeBranch, faHeartPulse, faLock, faNetworkWired, faPaste, faServer, faShieldHalved, faStar,
 } from '@fortawesome/free-solid-svg-icons';
-import Chip from '@/components/Chip';
+import Fetch from '@/components/Fetch';
 import Section from '@/components/Section';
 import useRepos from '@/hooks/useRepos';
 
@@ -28,12 +28,14 @@ const SERVICES = [
 const year = () => { const n = new Date(); return n.getFullYear() - 2022 + (n.getMonth() >= 8 ? 1 : 0); };
 
 const SPECS = [
-  ['Estudios', 'Ing. de Computadores · US'],
-  ['Curso', `${year()}º`],
-  ['OS', 'Arch Linux (btw)'],
-  ['DE', 'KDE Plasma'],
-  ['Homelab', 'Debian 13'],
-  ['Uptime', 'demasiado'],
+  ['estudios', 'Ing. de Computadores · US'],
+  ['curso', `${year()}º`],
+  ['os', 'Arch Linux (btw)'],
+  ['de', 'KDE Plasma'],
+  ['homelab', 'Debian 13'],
+  ['stack', 'embedded · backend · HDL'],
+  ['ops', 'redes · seguridad · sysadmin'],
+  ['uptime', 'demasiado'],
 ];
 
 const rise = (delay = 0) => ({
@@ -48,13 +50,12 @@ export default function Home() {
   const byName = Object.fromEntries(repos.map((r) => [r.name, r]));
 
   return (
-    <div className="wrap">
+    <>
       <section className="hero">
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <span className="eyebrow">
             <i className="eyebrow__dot" />
-            <span>hoja de datos</span>
-            <span className="eyebrow__part">JG-7761 · rev. {new Date().getFullYear()}</span>
+            <span>hola, soy</span>
           </span>
           <h1 className="hero__name">Jose<span className="accent">.</span></h1>
           <p className="hero__aka">aka <b>Gallardo7761</b></p>
@@ -68,8 +69,8 @@ export default function Home() {
             <div><dt>{SERVICES.length}+</dt><dd>servicios propios</dd></div>
           </dl>
         </motion.div>
-        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.15 }}>
-          <Chip />
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }}>
+          <Fetch specs={SPECS} />
         </motion.div>
       </section>
 
@@ -87,10 +88,7 @@ export default function Home() {
               Estudio <span className="accent">Ingeniería de Computadores</span> en la Universidad de Sevilla y me paso
               el día entre Linux, redes, electrónica y webdev. Todo lo que ves en miarma.net corre en mi propio servidor.
             </motion.p>
-            <motion.dl className="facts" {...rise(0.1)}>
-              {SPECS.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
-            </motion.dl>
-            <motion.ul className="likes" {...rise(0.15)}>
+            <motion.ul className="likes" {...rise(0.1)}>
               {INTERESTS.map((s) => <li key={s}>{s}</li>)}
             </motion.ul>
           </div>
@@ -142,7 +140,6 @@ export default function Home() {
           </motion.a>
         </div>
       </Section>
-
-    </div>
+    </>
   );
 }
