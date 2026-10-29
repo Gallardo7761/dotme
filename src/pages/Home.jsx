@@ -17,12 +17,12 @@ const FAV = [
 ];
 
 const SERVICES = [
-  { title: 'MiarmaGit', host: 'git.killobyte.es', icon: faCodeBranch },
+  { title: 'Fragua', host: 'git.killobyte.es', icon: faCodeBranch },
   { title: 'mCDN', host: 'cdn.killobyte.es', icon: faNetworkWired },
-  { title: 'MiarmaPaste', host: 'paste.killobyte.es', icon: faPaste },
+  { title: 'KPaste', host: 'paste.killobyte.es', icon: faPaste },
   { title: 'Status', host: 'status.killobyte.es', icon: faHeartPulse, href: 'https://status.killobyte.es/status/public' },
-  { title: 'MiarmaDocs', host: 'docs.killobyte.es', icon: faBook },
-  { title: 'MiarmaID', host: 'id.killobyte.es', icon: faShieldHalved },
+  { title: 'Apuntes', host: 'docs.killobyte.es', icon: faBook },
+  { title: 'KilloID', host: 'id.killobyte.es', icon: faShieldHalved },
 ];
 
 const year = () => { const n = new Date(); return n.getFullYear() - 2022 + (n.getMonth() >= 8 ? 1 : 0); };
@@ -61,7 +61,7 @@ export default function Home() {
           <p className="hero__aka">aka <b>Gallardo7761</b></p>
           <div className="btns">
             <Link className="btn" to="/proyectos">Ver proyectos <FontAwesomeIcon icon={faArrowRight} /></Link>
-            <a className="btn ghost" href="https://git.killobyte.es/Gallardo7761" target="_blank" rel="noopener noreferrer">MiarmaGit</a>
+            <a className="btn ghost" href="https://git.killobyte.es/Gallardo7761" target="_blank" rel="noopener noreferrer">Fragua</a>
           </div>
           <dl className="stats">
             <div><dt>{year()}º</dt><dd>curso en la US</dd></div>

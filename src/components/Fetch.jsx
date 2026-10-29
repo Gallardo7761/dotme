@@ -17,13 +17,13 @@ const line = (i) => ({ initial: { opacity: 0 }, animate: { opacity: 1 }, transit
 export default function Fetch({ specs }) {
   return (
     <figure className="fetch">
-      <div className="fetch__bar"><i /><i /><i /><span>jose@miarma: ~</span></div>
+      <div className="fetch__bar"><i /><i /><i /><span>jomaa@heimdall: ~</span></div>
       <div className="fetch__body">
-        <p className="fetch__cmd"><span>jose@miarma ~ $</span> fastfetch</p>
+        <p className="fetch__cmd"><span>jomaa@heimdall ~ $</span> fastfetch</p>
         <div className="fetch__out">
           <motion.pre className="fetch__logo" aria-hidden="true" {...line(0)}>{LOGO}</motion.pre>
           <div className="fetch__info">
-            <motion.p className="fetch__host" {...line(0)}>jose<span>@</span>miarma</motion.p>
+            <motion.p className="fetch__host" {...line(0)}>jomaa<span>@</span>heimdall</motion.p>
             <motion.hr className="fetch__rule" {...line(1)} />
             <dl>
               {specs.map(([k, v], i) => (
@@ -35,7 +35,7 @@ export default function Fetch({ specs }) {
             </motion.div>
           </div>
         </div>
-        <motion.p className="fetch__cmd" {...line(specs.length + 3)}><span>jose@miarma ~ $</span> <i className="fetch__cursor" /></motion.p>
+        <motion.p className="fetch__cmd" {...line(specs.length + 3)}><span>jomaa@heimdall ~ $</span> <i className="fetch__cursor" /></motion.p>
       </div>
     </figure>
   );

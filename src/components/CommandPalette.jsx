@@ -14,8 +14,8 @@ export default function CommandPalette({ open, onClose }) {
     ['Ir a Inicio', () => nav('/')],
     ['Ir a Proyectos', () => nav('/proyectos')],
     ['killobyte.es', ext('https://killobyte.es')],
-    ['mCDN', ext('https://cdn.killobyte.es')],
-    ['MiarmaGit', ext('https://git.killobyte.es/Gallardo7761')],
+    ['CDN', ext('https://cdn.killobyte.es')],
+    ['Fragua', ext('https://git.killobyte.es/Gallardo7761')],
     ['Instagram', ext('https://instagram.com/gallardoo7761')],
     ['Mastodon', ext('https://masto.es/@gallardo7761')],
   ].filter(([n]) => n.toLowerCase().includes(q.toLowerCase()));
