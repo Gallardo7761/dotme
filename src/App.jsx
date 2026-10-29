@@ -31,18 +31,18 @@ export default function App() {
   }, []);
 
   return (
-    <div className="miarma-shell">
+    <div className="kb-shell">
       <motion.div className="progress" style={{ scaleX }} />
       <Nav onPalette={() => setPal(true)} />
       <AnimatePresence mode="wait">
-        <motion.main key={loc.pathname} className="miarma-container" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+        <motion.main key={loc.pathname} className="kb-container" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
           <Routes location={loc}>
             <Route path="/" element={<Home />} />
             <Route path="/proyectos" element={<Projects />} />
           </Routes>
         </motion.main>
       </AnimatePresence>
-      <miarma-footer />
+      <kb-footer />
       <HackerCat />
       <CommandPalette open={pal} onClose={() => setPal(false)} />
     </div>

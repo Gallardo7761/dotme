@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const API = 'https://git.miarma.net/api/v1/users';
+const API = 'https://git.killobyte.es/api/v1/users';
 const USERS = ['Gallardo7761', 'huertos-bellavista', 'croppy', 'archivo'];
 
 const fetchRepos = (user) => fetch(`${API}/${user}/repos?limit=100`)

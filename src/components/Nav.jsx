@@ -6,13 +6,13 @@ const links = [['/', 'Inicio'], ['/proyectos', 'Proyectos']];
 export default function Nav({ onPalette }) {
   const navigate = useNavigate();
   const home = (e) => {
-    if (!e.target.closest('.miarma-header__brand') || e.metaKey || e.ctrlKey) return;
+    if (!e.target.closest('.kb-header__brand') || e.metaKey || e.ctrlKey) return;
     e.preventDefault();
     navigate('/');
   };
 
   return (
-    <miarma-header site="jose" tag="portfolio · ingeniería de computadores" onClick={home}>
+    <kb-header site="jose" tag="portfolio · ingeniería de computadores" onClick={home}>
       <nav className="nav">
         {links.map(([to, label]) => (
           <NavLink key={to} to={to} end className={({ isActive }) => (isActive ? 'on' : '')}>
@@ -26,6 +26,6 @@ export default function Nav({ onPalette }) {
         ))}
         <button className="kbd" onClick={onPalette} aria-label="Abrir paleta de comandos">Ctrl K</button>
       </nav>
-    </miarma-header>
+    </kb-header>
   );
 }

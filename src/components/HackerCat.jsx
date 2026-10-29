@@ -63,18 +63,18 @@ const HackerCat = () => {
       }}
     >
       <div style={{
-        background: 'var(--miarma-blue-night)',
-        color: 'var(--miarma-text)',
+        background: 'var(--kb-blue-night)',
+        color: 'var(--kb-text)',
         padding: '5px 10px',
         borderRadius: '8px',
         fontSize: '14px',
-        fontFamily: 'var(--miarma-font-body)',
-        border: '1.5px solid var(--miarma-blue)',
+        fontFamily: 'var(--kb-font-body)',
+        border: '1.5px solid var(--kb-blue)',
         marginBottom: '5px',
         
         whiteSpace: 'nowrap'
       }}>
-        <span style={{ color: 'var(--miarma-orange)' }}>$</span> {command}
+        <span style={{ color: 'var(--kb-orange)' }}>$</span> {command}
       </div>
 
       <img 

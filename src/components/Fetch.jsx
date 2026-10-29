@@ -31,7 +31,7 @@ export default function Fetch({ specs }) {
               ))}
             </dl>
             <motion.div className="fetch__swatches" aria-hidden="true" {...line(specs.length + 2)}>
-              {SWATCHES.map((c) => <i key={c} style={{ background: `var(--miarma-${c})` }} />)}
+              {SWATCHES.map((c) => <i key={c} style={{ background: `var(--kb-${c})` }} />)}
             </motion.div>
           </div>
         </div>

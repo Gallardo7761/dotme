@@ -39,13 +39,13 @@ export default function Projects() {
         <div className="chips filters">
           {langs.map((l) => (
             <button key={l} className={`chip-tag ${lang === l ? 'on' : ''}`} onClick={() => setLang(l)}>
-              {l !== 'Todos' && <i className="dot" style={{ background: LANG_COLORS[l] ?? 'var(--miarma-text-muted)' }} />}{l}
+              {l !== 'Todos' && <i className="dot" style={{ background: LANG_COLORS[l] ?? 'var(--kb-text-muted)' }} />}{l}
             </button>
           ))}
         </div>
 
         {loading && <p className="empty">Cargando repos…</p>}
-        {error && <p className="empty">No se ha podido conectar con git.miarma.net. Recarga en un rato.</p>}
+        {error && <p className="empty">No se ha podido conectar con git.killobyte.es. Recarga en un rato.</p>}
         {!loading && !error && !list.length && <p className="empty">Ningún repo coincide con ese filtro.</p>}
 
         <motion.div layout className="grid">
@@ -61,7 +61,7 @@ export default function Projects() {
                 <h3>{r.name}</h3>
                 <p>{r.description || 'Este repo no descripción.'}</p>
                 <div className="meta">
-                  <span><i className="dot" style={{ background: LANG_COLORS[r.language] ?? 'var(--miarma-text-muted)' }} />{r.language || 'Desconocido'}</span>
+                  <span><i className="dot" style={{ background: LANG_COLORS[r.language] ?? 'var(--kb-text-muted)' }} />{r.language || 'Desconocido'}</span>
                   <span><FontAwesomeIcon icon={faStar} /> {r.stars_count} · {new Date(r.updated_at).toLocaleDateString('es-ES')}</span>
                 </div>
               </motion.a>

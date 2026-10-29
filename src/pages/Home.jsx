@@ -17,12 +17,12 @@ const FAV = [
 ];
 
 const SERVICES = [
-  { title: 'MiarmaGit', host: 'git.miarma.net', icon: faCodeBranch },
-  { title: 'mCDN', host: 'cdn.miarma.net', icon: faNetworkWired },
-  { title: 'MiarmaPaste', host: 'paste.miarma.net', icon: faPaste },
-  { title: 'Status', host: 'status.miarma.net', icon: faHeartPulse, href: 'https://status.miarma.net/status/public' },
-  { title: 'MiarmaDocs', host: 'docs.miarma.net', icon: faBook },
-  { title: 'MiarmaID', host: 'id.miarma.net', icon: faShieldHalved },
+  { title: 'MiarmaGit', host: 'git.killobyte.es', icon: faCodeBranch },
+  { title: 'mCDN', host: 'cdn.killobyte.es', icon: faNetworkWired },
+  { title: 'MiarmaPaste', host: 'paste.killobyte.es', icon: faPaste },
+  { title: 'Status', host: 'status.killobyte.es', icon: faHeartPulse, href: 'https://status.killobyte.es/status/public' },
+  { title: 'MiarmaDocs', host: 'docs.killobyte.es', icon: faBook },
+  { title: 'MiarmaID', host: 'id.killobyte.es', icon: faShieldHalved },
 ];
 
 const year = () => { const n = new Date(); return n.getFullYear() - 2022 + (n.getMonth() >= 8 ? 1 : 0); };
@@ -61,7 +61,7 @@ export default function Home() {
           <p className="hero__aka">aka <b>Gallardo7761</b></p>
           <div className="btns">
             <Link className="btn" to="/proyectos">Ver proyectos <FontAwesomeIcon icon={faArrowRight} /></Link>
-            <a className="btn ghost" href="https://git.miarma.net/Gallardo7761" target="_blank" rel="noopener noreferrer">MiarmaGit</a>
+            <a className="btn ghost" href="https://git.killobyte.es/Gallardo7761" target="_blank" rel="noopener noreferrer">MiarmaGit</a>
           </div>
           <dl className="stats">
             <div><dt>{year()}º</dt><dd>curso en la US</dd></div>
@@ -78,7 +78,7 @@ export default function Home() {
         <div className="about">
           <motion.figure className="portrait" {...rise()}>
             <div className="portrait__frame">
-              <img alt="Jose" src="https://git.miarma.net/avatars/2fba8e2d4e39fffec3bbfe128df0cb9934ccf9b49fd6d310244c6b6209739425?size=512" />
+              <img alt="Jose" src="https://git.killobyte.es/avatars/2fba8e2d4e39fffec3bbfe128df0cb9934ccf9b49fd6d310244c6b6209739425?size=512" />
               <i /><i /><i /><i />
             </div>
             <figcaption>fig. 2 — el autor, en su hábitat</figcaption>
@@ -86,7 +86,7 @@ export default function Home() {
           <div>
             <motion.p className="lead" {...rise(0.05)}>
               Estudio <span className="accent">Ingeniería de Computadores</span> en la Universidad de Sevilla y me paso
-              el día entre Linux, redes, electrónica y webdev. Todo lo que ves en miarma.net corre en mi propio servidor.
+              el día entre Linux, redes, electrónica y webdev. Todo lo que ves en killobyte.es corre en mi propio servidor.
             </motion.p>
             <motion.ul className="likes" {...rise(0.1)}>
               {INTERESTS.map((s) => <li key={s}>{s}</li>)}
@@ -132,11 +132,11 @@ export default function Home() {
               <span className="svc__host">{s.host}</span>
             </motion.a>
           ))}
-          <motion.a className="svc__tile svc__tile--all" href="https://miarma.net" target="_blank" rel="noopener noreferrer" {...rise(0.3)}>
+          <motion.a className="svc__tile svc__tile--all" href="https://killobyte.es" target="_blank" rel="noopener noreferrer" {...rise(0.3)}>
             <FontAwesomeIcon icon={faServer} className="svc__icon" />
             <FontAwesomeIcon icon={faArrowRight} className="svc__arrow" />
             <span className="svc__title">Y más…</span>
-            <span className="svc__host">miarma.net</span>
+            <span className="svc__host">killobyte.es</span>
           </motion.a>
         </div>
       </Section>
