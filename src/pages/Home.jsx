@@ -12,13 +12,13 @@ const INTERESTS = ['IoT', 'Electrónica', 'Sistemas Empotrados', 'Ciberseguridad
 
 const FAV = [
   { title: 'ses-terminal', desc: 'Terminal ciudadana del SES Alas de la Libertad', tech: 'React' },
-  { title: 'mkernel', desc: 'Paper plugin for my friends Minecraft server', tech: 'Kotlin' },
+  { title: 'nucleo', desc: 'Paper plugin for my friends Minecraft server', tech: 'Kotlin' },
   { title: 'contaminus', desc: 'Proyecto Hack4Change 24/25. Fullstack + IoT.', tech: 'React/Java/Python/IoT' },
 ];
 
 const SERVICES = [
   { title: 'Fragua', host: 'git.killobyte.es', icon: faCodeBranch },
-  { title: 'mCDN', host: 'cdn.killobyte.es', icon: faNetworkWired },
+  { title: 'CDN', host: 'cdn.killobyte.es', icon: faNetworkWired },
   { title: 'KPaste', host: 'paste.killobyte.es', icon: faPaste },
   { title: 'Status', host: 'status.killobyte.es', icon: faHeartPulse, href: 'https://status.killobyte.es/status/public' },
   { title: 'Apuntes', host: 'docs.killobyte.es', icon: faBook },
@@ -31,9 +31,9 @@ const SPECS = [
   ['estudios', 'Ing. de Computadores · US'],
   ['curso', `${year()}º`],
   ['os', 'Arch Linux (btw)'],
-  ['de', 'KDE Plasma'],
+  ['de', 'Hyprland'],
   ['homelab', 'Debian 13'],
-  ['stack', 'embedded · backend · HDL'],
+  ['stack', 'embedded · backend · low-level'],
   ['ops', 'redes · seguridad · sysadmin'],
   ['uptime', 'demasiado'],
 ];
@@ -78,7 +78,7 @@ export default function Home() {
         <div className="about">
           <motion.figure className="portrait" {...rise()}>
             <div className="portrait__frame">
-              <img alt="Jose" src="https://git.killobyte.es/avatars/2fba8e2d4e39fffec3bbfe128df0cb9934ccf9b49fd6d310244c6b6209739425?size=512" />
+              <img alt="Jose" src="https://git.killobyte.es/Gallardo7761.png" />
               <i /><i /><i /><i />
             </div>
             <figcaption>fig. 2 — el autor, en su hábitat</figcaption>
