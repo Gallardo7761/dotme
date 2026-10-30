@@ -63,13 +63,13 @@ const HackerCat = () => {
       }}
     >
       <div style={{
-        background: 'var(--kb-blue-night)',
+        background: 'var(--kb-green-night)',
         color: 'var(--kb-text)',
         padding: '5px 10px',
         borderRadius: '8px',
         fontSize: '14px',
         fontFamily: 'var(--kb-font-body)',
-        border: '1.5px solid var(--kb-blue)',
+        border: '1.5px solid var(--kb-green)',
         marginBottom: '5px',
         
         whiteSpace: 'nowrap'

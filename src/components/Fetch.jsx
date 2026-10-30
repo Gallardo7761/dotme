@@ -10,7 +10,7 @@ const LOGO = [
   "/_-''    ''-_\\",
 ].join('\n');
 
-const SWATCHES = ['blue-dark', 'blue', 'text-muted', 'orange-deep', 'orange', 'orange-light', 'text'];
+const SWATCHES = ['green-dark', 'green', 'text-muted', 'orange-deep', 'orange', 'orange-light', 'text'];
 
 const line = (i) => ({ initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.15, delay: 0.5 + i * 0.07 } });
 
