@@ -19,10 +19,10 @@ const FAV = [
 const SERVICES = [
   { title: 'Fragua', host: 'git.killobyte.es', icon: faCodeBranch },
   { title: 'CDN', host: 'cdn.killobyte.es', icon: faNetworkWired },
-  { title: 'KPaste', host: 'paste.killobyte.es', icon: faPaste },
+  { title: 'Caduco', host: 'caduco.killobyte.es', icon: faPaste },
   { title: 'Status', host: 'status.killobyte.es', icon: faHeartPulse, href: 'https://status.killobyte.es/status/public' },
   { title: 'Apuntes', host: 'docs.killobyte.es', icon: faBook },
-  { title: 'KilloID', host: 'id.killobyte.es', icon: faShieldHalved },
+  { title: 'KID', host: 'id.killobyte.es', icon: faShieldHalved },
 ];
 
 const year = () => { const n = new Date(); return n.getFullYear() - 2022 + (n.getMonth() >= 8 ? 1 : 0); };
