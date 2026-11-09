@@ -1,9 +1,9 @@
+import { Fragment } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 
 const links = [['/', 'Inicio'], ['/proyectos', 'Proyectos']];
 
-export default function Nav({ onPalette }) {
+export default function Nav() {
   const navigate = useNavigate();
   const home = (e) => {
     if (!e.target.closest('.kb-header__brand') || e.metaKey || e.ctrlKey) return;
@@ -14,17 +14,12 @@ export default function Nav({ onPalette }) {
   return (
     <kb-header site="jose" tag="portfolio · ingeniería de computadores" onClick={home}>
       <nav className="nav">
-        {links.map(([to, label]) => (
-          <NavLink key={to} to={to} end className={({ isActive }) => (isActive ? 'on' : '')}>
-            {({ isActive }) => (
-              <>
-                {isActive && <motion.span layoutId="pill" className="pill" transition={{ type: 'spring', stiffness: 400, damping: 32 }} />}
-                {label}
-              </>
-            )}
-          </NavLink>
+        {links.map(([to, label], i) => (
+          <Fragment key={to}>
+            {i > 0 && ' | '}
+            <NavLink to={to} end>{label}</NavLink>
+          </Fragment>
         ))}
-        <button className="kbd" onClick={onPalette} aria-label="Abrir paleta de comandos">Ctrl K</button>
       </nav>
     </kb-header>
   );

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
 
 const LOGO = [
   '      /\\',
@@ -10,33 +10,31 @@ const LOGO = [
   "/_-''    ''-_\\",
 ].join('\n');
 
-const SWATCHES = ['green-dark', 'green', 'text-muted', 'orange-deep', 'orange', 'orange-light', 'text'];
+const HOST = 'jomaa@heimdall';
 
-const line = (i) => ({ initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.15, delay: 0.5 + i * 0.07 } });
-
+// Como la salida de fastfetch, pero en texto: claves con puntos de relleno hasta la misma columna
 export default function Fetch({ specs }) {
+  const width = Math.max(0, ...specs.map(([k]) => k.length)) + 2;
+
   return (
-    <figure className="fetch">
-      <div className="fetch__bar"><i /><i /><i /><span>jomaa@heimdall: ~</span></div>
-      <div className="fetch__body">
-        <p className="fetch__cmd"><span>jomaa@heimdall ~ $</span> fastfetch</p>
-        <div className="fetch__out">
-          <motion.pre className="fetch__logo" aria-hidden="true" {...line(0)}>{LOGO}</motion.pre>
-          <div className="fetch__info">
-            <motion.p className="fetch__host" {...line(0)}>jomaa<span>@</span>heimdall</motion.p>
-            <motion.hr className="fetch__rule" {...line(1)} />
-            <dl>
-              {specs.map(([k, v], i) => (
-                <motion.div key={k} {...line(i + 2)}><dt>{k}</dt><dd>{v}</dd></motion.div>
-              ))}
-            </dl>
-            <motion.div className="fetch__swatches" aria-hidden="true" {...line(specs.length + 2)}>
-              {SWATCHES.map((c) => <i key={c} style={{ background: `var(--kb-${c})` }} />)}
-            </motion.div>
-          </div>
-        </div>
-        <motion.p className="fetch__cmd" {...line(specs.length + 3)}><span>jomaa@heimdall ~ $</span> <i className="fetch__cursor" /></motion.p>
+    <div className="fetch">
+      <pre className="fetch__logo" aria-hidden="true">{LOGO}</pre>
+      <div className="fetch__info">
+        <p className="fetch__host"><b>{HOST}</b></p>
+        <p className="fetch__rule" aria-hidden="true">{'-'.repeat(HOST.length)}</p>
+        <dl>
+          {specs.map(([k, v]) => (
+            <div key={k}>
+              <dt>{k}<span aria-hidden="true"> {'.'.repeat(width - k.length)}</span></dt>
+              <dd>{v}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
-    </figure>
+    </div>
   );
 }
+
+Fetch.propTypes = {
+  specs: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+};

@@ -1,74 +1,66 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faStar } from '@fortawesome/free-solid-svg-icons';
-import Section from '@/components/Section';
 import useRepos from '@/hooks/useRepos';
 
-const LANG_COLORS = {
-  JavaScript: '#f1e05a', TypeScript: '#3178c6', Java: '#b07219', Kotlin: '#a97bff', Rust: '#dea584', Python: '#3572a5',
-  C: '#555555', 'C++': '#f34b7d', CSS: '#563d7c', HTML: '#e34c26', Shell: '#89e051', Go: '#00add8',
-  Verilog: '#b2b7f8', VHDL: '#adb2cb', Markdown: '#083fa1', 'KiCad Layout': '#2f4aab',
-};
 const SORTS = { recent: ['recientes', (a, b) => new Date(b.updated_at) - new Date(a.updated_at)], stars: ['estrellas', (a, b) => b.stars_count - a.stars_count] };
 
 export default function Projects() {
   const { repos, loading, error } = useRepos();
   const [q, setQ] = useState('');
-  const [lang, setLang] = useState('Todos');
+  const [lang, setLang] = useState('');
   const [sort, setSort] = useState('recent');
 
   const visible = repos.filter((r) => !r.name.startsWith('.'));
-  const langs = ['Todos', ...new Set(visible.map((r) => r.language).filter(Boolean))];
+  const langs = [...new Set(visible.map((r) => r.language).filter(Boolean))].sort();
   const list = visible
-    .filter((r) => (lang === 'Todos' || r.language === lang) &&
+    .filter((r) => (!lang || r.language === lang) &&
       `${r.owner.login} ${r.name} ${r.description || ''}`.toLowerCase().includes(q.toLowerCase()))
     .sort(SORTS[sort][1]);
 
   return (
-    <div className="page">
-      <Section n="//" title="Proyectos" aside={!loading && !error && <span className="sec__count">{list.length}/{visible.length}</span>}>
-        <div className="tools">
-          <input className="search" placeholder="Buscar repos…" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Buscar repos" />
-          <div className="seg" role="group" aria-label="Ordenar">
-            {Object.entries(SORTS).map(([k, [label]]) => (
-              <button key={k} className={sort === k ? 'on' : ''} onClick={() => setSort(k)}>{label}</button>
-            ))}
-          </div>
-        </div>
-        <div className="chips filters">
-          {langs.map((l) => (
-            <button key={l} className={`chip-tag ${lang === l ? 'on' : ''}`} onClick={() => setLang(l)}>
-              {l !== 'Todos' && <i className="dot" style={{ background: LANG_COLORS[l] ?? 'var(--kb-text-muted)' }} />}{l}
-            </button>
-          ))}
-        </div>
+    <>
+      <h1>Proyectos</h1>
+      <p>
+        Repositorios públicos en <a href="https://git.killobyte.es/Gallardo7761" target="_blank" rel="noopener noreferrer">git.killobyte.es</a>
+        {!loading && !error && <span className="kb-muted"> · mostrando {list.length} de {visible.length}</span>}
+      </p>
 
-        {loading && <p className="empty">Cargando repos…</p>}
-        {error && <p className="empty">No se ha podido conectar con git.killobyte.es. Recarga en un rato.</p>}
-        {!loading && !error && !list.length && <p className="empty">Ningún repo coincide con ese filtro.</p>}
+      <form className="filters" role="search" onSubmit={(e) => e.preventDefault()}>
+        <label>Buscar <input type="search" value={q} onChange={(e) => setQ(e.target.value)} /></label>
+        <label>Lenguaje{' '}
+          <select value={lang} onChange={(e) => setLang(e.target.value)}>
+            <option value="">todos</option>
+            {langs.map((l) => <option key={l}>{l}</option>)}
+          </select>
+        </label>
+        <label>Ordenar por{' '}
+          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+            {Object.entries(SORTS).map(([k, [label]]) => <option key={k} value={k}>{label}</option>)}
+          </select>
+        </label>
+      </form>
 
-        <motion.div layout className="grid">
-          <AnimatePresence mode="popLayout">
-            {list.map((r) => (
-              <motion.a key={r.id} layout className="repo" href={r.html_url} target="_blank" rel="noopener noreferrer"
-                initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.94 }}>
-                <FontAwesomeIcon icon={faArrowRight} className="repo__arrow" />
-                <span className="repo__owner">
-                  <img src={`${r.owner.avatar_url}?size=48`} alt="" width={20} height={20} loading="lazy" />
-                  {r.owner.login}
-                </span>
-                <h3>{r.name}</h3>
-                <p>{r.description || 'Este repo no descripción.'}</p>
-                <div className="meta">
-                  <span><i className="dot" style={{ background: LANG_COLORS[r.language] ?? 'var(--kb-text-muted)' }} />{r.language || 'Desconocido'}</span>
-                  <span><FontAwesomeIcon icon={faStar} /> {r.stars_count} · {new Date(r.updated_at).toLocaleDateString('es-ES')}</span>
-                </div>
-              </motion.a>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-      </Section>
-    </div>
+      {loading && <p className="kb-muted">Cargando repos…</p>}
+      {error && <p>No se ha podido conectar con git.killobyte.es. Recarga en un rato.</p>}
+      {!loading && !error && !list.length && <p className="kb-muted">Ningún repo coincide con ese filtro.</p>}
+
+      {list.length > 0 && (
+        <div className="kb-scroll">
+          <table className="repos">
+            <thead><tr><th>Repositorio</th><th>Descripción</th><th>Lenguaje</th><th>★</th><th>Actualizado</th></tr></thead>
+            <tbody>
+              {list.map((r) => (
+                <tr key={r.id}>
+                  <td><span className="kb-muted">{r.owner.login}/</span><a href={r.html_url} target="_blank" rel="noopener noreferrer">{r.name}</a></td>
+                  <td>{r.description || <span className="kb-muted">sin descripción</span>}</td>
+                  <td>{r.language || <span className="kb-muted">—</span>}</td>
+                  <td className="num">{r.stars_count}</td>
+                  <td className="kb-mono">{new Date(r.updated_at).toLocaleDateString('es-ES')}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </>
   );
 }

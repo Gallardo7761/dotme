@@ -1,119 +1,98 @@
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faLock, faServer, faStar } from '@fortawesome/free-solid-svg-icons';
 import Fetch from '@/components/Fetch';
 import Section from '@/components/Section';
 import useContent from '@/hooks/useContent';
 import useRepos from '@/hooks/useRepos';
-import { iconFor } from '@/icons';
 
 const year = () => { const n = new Date(); return n.getFullYear() - 2022 + (n.getMonth() >= 8 ? 1 : 0); };
 
-const rise = (delay = 0) => ({
-  initial: { opacity: 0, y: 16 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.45, delay },
-});
+const JUMP = [['sobre-mi', 'Sobre mí'], ['setup', 'Mi setup'], ['proyectos', 'Proyectos'], ['homelab', 'Homelab']];
+
+// botones de 88x31, como los de las webs de antes
+const BADGES = [['arch linux', 'btw'], ['hyprland', 'wm'], ['debian', '13'], ['self', 'hosted']];
 
 export default function Home() {
   const { repos } = useRepos();
   const { interests, featured, services, specs } = useContent();
   const specList = Object.entries(specs).map(([k, v]) => [k, String(v).replace('{curso}', year())]);
   const byName = Object.fromEntries(repos.map((r) => [r.name, r]));
+  const lastActivity = repos.reduce((max, r) => (r.updated_at > max ? r.updated_at : max), '');
 
   return (
     <>
-      <section className="hero">
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <span className="eyebrow">
-            <i className="eyebrow__dot" />
-            <span>hola, soy</span>
-          </span>
-          <h1 className="hero__name">Jose<span className="accent">.</span></h1>
-          <p className="hero__aka">aka <b>Gallardo7761</b></p>
-          <div className="btns">
-            <Link className="btn" to="/proyectos">Ver proyectos <FontAwesomeIcon icon={faArrowRight} /></Link>
-            <a className="btn ghost" href="https://git.killobyte.es/Gallardo7761" target="_blank" rel="noopener noreferrer">Fragua</a>
-          </div>
-          <dl className="stats">
-            <div><dt>{year()}º</dt><dd>curso en la US</dd></div>
-            <div><dt>{repos.length || '··'}</dt><dd>repos públicos</dd></div>
-            <div><dt>{services.length || '··'}+</dt><dd>servicios propios</dd></div>
-          </dl>
-        </motion.div>
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }}>
-          <Fetch specs={specList} />
-        </motion.div>
-      </section>
+      <div className="welcome">
+        <h1>¡Hola! Soy Jose</h1>
+        <p>aka <b>Gallardo7761</b> · estudiante de Ingeniería de Computadores en la Universidad de Sevilla</p>
+        <p className="welcome__jump">
+          Ir a:{' '}
+          {JUMP.map(([id, label], i) => <Fragment key={id}>{i > 0 && ' · '}<a href={`#${id}`}>{label}</a></Fragment>)}
+        </p>
+      </div>
 
-      <Section n="01" title="Sobre mí">
-        <div className="about">
-          <motion.figure className="portrait" {...rise()}>
-            <div className="portrait__frame">
-              <img alt="Jose" src="https://git.killobyte.es/Gallardo7761.png" />
-              <i /><i /><i /><i />
-            </div>
-            <figcaption>fig. 2 — el autor, en su hábitat</figcaption>
-          </motion.figure>
-          <div>
-            <motion.p className="lead" {...rise(0.05)}>
-              Estudio <span className="accent">Ingeniería de Computadores</span> en la Universidad de Sevilla y me paso
-              el día entre Linux, redes, electrónica y webdev. Todo lo que ves en killobyte.es corre en mi propio servidor.
-            </motion.p>
-            <motion.ul className="likes" {...rise(0.1)}>
-              {interests.map((s) => <li key={s}>{s}</li>)}
-            </motion.ul>
-          </div>
-        </div>
+      <hr />
+
+      <Section id="sobre-mi" title="Sobre mí">
+        <figure className="portrait">
+          <img alt="Jose" src="https://git.killobyte.es/Gallardo7761.png" width={160} height={160} />
+          <figcaption>el autor, en su hábitat</figcaption>
+        </figure>
+        <p>
+          Estoy en {year()}º de Ingeniería de Computadores en la US y me paso el día entre Linux, redes,
+          electrónica y webdev. Todo lo que ves en <a href="https://killobyte.es">killobyte.es</a> corre en mi propio servidor.
+        </p>
+        {interests.length > 0 && <p><b>Cosas que me gustan:</b> {interests.join(', ')}.</p>}
       </Section>
 
-      <Section n="02" title="Proyectos destacados" aside={<Link className="sec__more" to="/proyectos">ver todos →</Link>}>
-        <div className="feat">
-          {featured.map((p, i) => {
+      <hr />
+
+      <Section id="setup" title="Mi setup">
+        <Fetch specs={specList} />
+      </Section>
+
+      <hr />
+
+      <Section id="proyectos" title="Proyectos destacados">
+        <ul className="list">
+          {featured.map((p) => {
             const repo = byName[p.title];
-            const body = (
-              <>
-                <span className="feat__idx">0{i + 1}</span>
-                <FontAwesomeIcon icon={repo ? faArrowRight : faLock} className="feat__arrow" />
-                <h3>{p.title}</h3>
-                <p>{p.desc}</p>
-                <div className="feat__meta">
-                  <span className="tag">{p.tech}</span>
-                  {repo ? <span><FontAwesomeIcon icon={faStar} /> {repo.stars_count}</span> : <span>privado</span>}
-                </div>
-              </>
-            );
             return (
-              <motion.div key={p.title} {...rise(i * 0.08)}>
-                {repo
-                  ? <a className="feat__tile" href={repo.html_url} target="_blank" rel="noopener noreferrer">{body}</a>
-                  : <div className="feat__tile feat__tile--private">{body}</div>}
-              </motion.div>
+              <li key={p.title}>
+                {repo ? <a href={repo.html_url} target="_blank" rel="noopener noreferrer">{p.title}</a> : <b>{p.title}</b>}
+                {' '}— {p.desc}{' '}
+                <span className="kb-muted">[{p.tech}{repo ? ` · ★ ${repo.stars_count}` : ' · privado'}]</span>
+              </li>
             );
           })}
-        </div>
+        </ul>
+        <p><Link to="/proyectos">ver todos mis proyectos{repos.length ? ` (${repos.length})` : ''} →</Link></p>
       </Section>
 
-      <Section n="03" title="Homelab" aside={<span className="sec__live"><i />en línea</span>}>
-        <div className="svc">
-          {services.map((s, i) => (
-            <motion.a key={s.title} className="svc__tile" href={s.href ?? `https://${s.host}`} target="_blank" rel="noopener noreferrer" {...rise(i * 0.05)}>
-              <FontAwesomeIcon icon={iconFor(s.icon)} className="svc__icon" />
-              <FontAwesomeIcon icon={faArrowRight} className="svc__arrow" />
-              <span className="svc__title">{s.title}</span>
-              <span className="svc__host">{s.host}</span>
-            </motion.a>
-          ))}
-          <motion.a className="svc__tile svc__tile--all" href="https://killobyte.es" target="_blank" rel="noopener noreferrer" {...rise(0.3)}>
-            <FontAwesomeIcon icon={faServer} className="svc__icon" />
-            <FontAwesomeIcon icon={faArrowRight} className="svc__arrow" />
-            <span className="svc__title">Y más…</span>
-            <span className="svc__host">killobyte.es</span>
-          </motion.a>
-        </div>
+      <hr />
+
+      <Section id="homelab" title="Mi homelab">
+        <p>Servicios que tengo montados en casa:</p>
+        <table className="homelab">
+          <tbody>
+            {services.map((s) => (
+              <tr key={s.title}>
+                <td><a href={s.href ?? `https://${s.host}`} target="_blank" rel="noopener noreferrer">{s.title}</a></td>
+                <td className="kb-muted">{s.host}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p>…y el resto, en <a href="https://killobyte.es" target="_blank" rel="noopener noreferrer">er çentro</a>.</p>
       </Section>
+
+      <hr />
+
+      <div className="badges" aria-hidden="true">
+        {BADGES.map(([name, tag]) => <span key={name} className="badge">{name}<b>{tag}</b></span>)}
+      </div>
+      {lastActivity && (
+        <p className="updated kb-muted">Última actividad en la Fragua: {new Date(lastActivity).toLocaleDateString('es-ES')}</p>
+      )}
     </>
   );
 }
